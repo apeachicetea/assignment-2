@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
+import Detail from "./Pages/Detail";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/issues/:id",
+    element: <Detail />,
   },
 ]);
 root.render(

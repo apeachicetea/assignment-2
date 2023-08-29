@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-const Wrapper = styled.a`
+const Wrapper = styled.div`
   display: flex;
   padding-bottom: 10px;
   margin-bottom: 10px;
@@ -21,8 +22,18 @@ const RightWrapper = styled.div`
 `;
 
 function Issue({ issue }) {
+  const navigate = useNavigate();
+
   return (
-    <Wrapper href={`/issues/${issue.number}`}>
+    <Wrapper
+      onClick={() =>
+        navigate(`/issues/${issue.number}`, {
+          state: {
+            issueId: issue.number,
+          },
+        })
+      }
+    >
       <LeftWrapper>
         <span>#{issue.number}</span>
         <span>{issue.title}</span>
