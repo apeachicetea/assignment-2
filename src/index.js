@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
 import Detail from "./Pages/Detail";
+import NotFound from "./Components/NotFound";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFound />,
   },
   {
     path: "/issues/:id",
