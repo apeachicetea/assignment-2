@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const token = REACT_APP_GIT_HUB_ACCESS_TOKEN;
+export const token = process.env.REACT_APP_GIT_HUB_ACCESS_TOKEN;
 
 export const api = axios.create({
-  baseURL: "https://www.pre-onboarding-selection-task.shop/",
+  baseURL: "https://api.github.com/repos/facebook/react/issues",
   headers: {
-    "Content-Type": "application/json",
+    accept: "application/vnd.github+json",
     Authorization: `Bearer ${token}`,
   },
 });
