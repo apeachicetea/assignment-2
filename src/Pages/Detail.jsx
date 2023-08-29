@@ -1,11 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { getAnIssue } from "../Utils/IssuesUtil";
 
 function Detail() {
   const location = useLocation();
-  console.log(location.state.issueId);
+  const issueId = String(location.state.issueId);
 
-  useEffect(() => {}, []);
+  const [issue, setIssue] = useState({});
+
+  useEffect(() => {
+    getAnIssue(issueId).then((issue) => setIssue(issue));
+  }, []);
 
   return <></>;
 }

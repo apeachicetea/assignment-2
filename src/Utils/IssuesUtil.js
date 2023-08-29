@@ -10,3 +10,8 @@ export const getIssues = async () => {
   });
   return data;
 };
+
+export const getAnIssue = async (issueId) => {
+  const { data } = await api.get(issueId);
+  return data;
+};
