@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getAnIssue } from "../Utils/IssuesUtil";
+import LoadingIndicator from "../Components/LoadingIndicator";
 
 function Detail() {
   const location = useLocation();
@@ -16,7 +17,7 @@ function Detail() {
 
   return (
     <>
-      {Object.keys(issue).length && (
+      {Object.keys(issue).length ? (
         <>
           <div>
             <img src={issue.user.avatar_url} alt="avatar_img" />
@@ -36,6 +37,8 @@ function Detail() {
           </div>
           <ReactMarkdown children={issue.body} remarkPlugins={[remarkGfm]} />
         </>
+      ) : (
+        <LoadingIndicator />
       )}
     </>
   );
