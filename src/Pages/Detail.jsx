@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { getAnIssue } from "../Utils/IssuesUtil";
 
 function Detail() {
@@ -7,8 +9,6 @@ function Detail() {
   const issueId = String(location.state.issueId);
 
   const [issue, setIssue] = useState({});
-
-  console.log(issue);
 
   useEffect(() => {
     getAnIssue(issueId).then((issue) => setIssue(issue));
@@ -34,7 +34,7 @@ function Detail() {
               <div>Comment: {issue.comments}</div>
             </div>
           </div>
-          <div>{issue.body}</div>
+          <ReactMarkdown children={issue.body} remarkPlugins={[remarkGfm]} />
         </>
       )}
     </>
