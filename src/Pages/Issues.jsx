@@ -5,6 +5,8 @@ import Issue from "../Components/Issue";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import { getIssuesThunk } from "../Redux/IssuesSlice";
 import Header from "../Components/Header";
+import { loading, unLoading } from "../Redux/LoadingSlice";
+import { addPage } from "../Redux/PageSlice";
 
 const Container = styled.ul`
   width: 100vw;
@@ -32,43 +34,45 @@ const AdImg = styled.img``;
 const Target = styled.div`
   width: 100vw;
   height: 10px;
+  bottom: 0px;
   background-color: red;
 `;
 
 function Issues() {
   const [isLoading, setIsLoading] = useState(true);
-  const [perPage, setPerPage] = useState(8);
   const target = useRef(null);
   const dispatch = useDispatch();
   const issues = useSelector((state) => {
     return state.issues;
   });
+  const loadingData = useSelector((state) => state.loading.isLoading);
+  const perPage = useSelector((state) => state.perPage.perPage);
 
   const adImageUrl =
     "https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100";
 
-  // const callback = (e) => {
-  //   if (e[0].isIntersecting) {
-  //     //추가 목록 로딩
-  //     setPerPage((prev) => prev + 8);
-  //     getIssues(perPage);
-  //   }
-  // };
+  useEffect(() => {
+    const callback = (e) => {
+      if (e[0].isIntersecting && !loadingData) {
+        //추가 목록 로딩
+        dispatch(addPage());
+        dispatch(loading());
+        dispatch(getIssuesThunk(perPage));
+        dispatch(unLoading());
+        setIsLoading(true);
+      }
+    };
 
-  // useEffect(() => {
-  //   if (target.current) {
-  //     const targetDiv = target.current;
-  //     const observer = new IntersectionObserver(callback, {
-  //       threshold: 1,
-  //     });
-  //     observer.observe(targetDiv);
-  //     return () => {
-  //       if (target) {
-  //         observer.unobserve(targetDiv);
-  //       }
-  //     };
-  //   }
-  // });
+    let observer;
+    if (target.current && !loadingData) {
+      const targetDiv = target.current;
+      observer = new IntersectionObserver(callback, {
+        threshold: 1,
+      });
+      observer.observe(targetDiv);
+    }
+    return () => observer && observer.disconnect();
+  });
 
   useEffect(() => {
     dispatch(getIssuesThunk(perPage)).then(() => setIsLoading(false));
