@@ -7,14 +7,16 @@ import { getIssuesThunk } from "../Redux/IssuesSlice";
 
 const Container = styled.ul`
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 30px;
+  margin-bottom: 20px;
 `;
 
-const AdLink = styled.a``;
+const AdLink = styled.a`
+  text-align: center;
+  margin: 20px 0px 20px 0px;
+`;
 
 const AdImg = styled.img``;
 
