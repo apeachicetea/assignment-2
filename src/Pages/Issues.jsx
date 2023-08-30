@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Issue from "../Components/Issue";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import { getIssuesThunk } from "../Redux/IssuesSlice";
+import Header from "../Components/Header";
 
 const Container = styled.ul`
   width: 100vw;
@@ -75,6 +76,7 @@ function Issues() {
 
   return (
     <Fragment>
+      <Header />
       {isLoading ? (
         <Wrapper>
           <LoadingIndicator />
