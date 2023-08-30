@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState, useRef } from "react";
 import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { getIssues } from "../Utils/IssuesUtil";
+import { useSelector, useDispatch } from "react-redux";
 import Issue from "../Components/Issue";
 import LoadingIndicator from "../Components/LoadingIndicator";
+import { getIssuesThunk } from "../Redux/IssuesSlice";
 
 const Container = styled.ul`
   width: 100vw;
@@ -25,42 +25,42 @@ const Target = styled.div`
 `;
 
 function Issues() {
-  const [issues, setIssues] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [perPage, setPerPage] = useState(8);
   const target = useRef(null);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const issues = useSelector((state) => {
+    return state.issues;
+  });
 
   const adImageUrl =
     "https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100";
 
-  const callback = (e) => {
-    if (e[0].isIntersecting) {
-      //추가 목록 로딩
-      setPerPage((prev) => prev + 8);
-      getIssues(perPage);
-    }
-  };
+  // const callback = (e) => {
+  //   if (e[0].isIntersecting) {
+  //     //추가 목록 로딩
+  //     setPerPage((prev) => prev + 8);
+  //     getIssues(perPage);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (target.current) {
+  //     const targetDiv = target.current;
+  //     const observer = new IntersectionObserver(callback, {
+  //       threshold: 1,
+  //     });
+  //     observer.observe(targetDiv);
+  //     return () => {
+  //       if (target) {
+  //         observer.unobserve(targetDiv);
+  //       }
+  //     };
+  //   }
+  // });
 
   useEffect(() => {
-    if (target.current) {
-      const targetDiv = target.current;
-      const observer = new IntersectionObserver(callback, {
-        threshold: 1,
-      });
-      observer.observe(targetDiv);
-      return () => {
-        if (target) {
-          observer.unobserve(targetDiv);
-        }
-      };
-    }
-  });
-
-  useEffect(() => {
-    getIssues(perPage)
-      .then((issues) => setIssues(issues))
-      .then(() => setIsLoading(false));
+    dispatch(getIssuesThunk(perPage)).then(() => setIsLoading(false));
   }, [perPage]);
 
   return (

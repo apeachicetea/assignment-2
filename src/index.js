@@ -6,6 +6,8 @@ import App from "./App";
 import Detail from "./Pages/Detail";
 import NotFound from "./Components/NotFound";
 import LoadingIndicator from "./Components/LoadingIndicator";
+import { Provider } from "react-redux";
+import store from "./Redux/Store";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -68,7 +70,9 @@ const router = createBrowserRouter([
 ]);
 root.render(
   <>
-    <GlobalStyles />
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <GlobalStyles />
+      <RouterProvider router={router} />
+    </Provider>
   </>
 );

@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { getAnIssue } from "../Utils/IssuesUtil";
+import { useSelector, useDispatch } from "react-redux";
 import LoadingIndicator from "../Components/LoadingIndicator";
+import { getAnIssueThunk } from "../Redux/IssueSlice";
 
 function Detail() {
   const location = useLocation();
   const issueId = String(location.state.issueId);
-
-  const [issue, setIssue] = useState({});
+  const dispatch = useDispatch();
+  const issue = useSelector((state) => {
+    return state.issue;
+  });
 
   useEffect(() => {
-    getAnIssue(issueId).then((issue) => setIssue(issue));
+    dispatch(getAnIssueThunk(issueId));
   }, []);
 
   return (
