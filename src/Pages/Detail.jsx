@@ -58,6 +58,15 @@ function Detail() {
     return state.issue;
   });
 
+  const dateString = issue.created_at;
+  const dateObj = new Date(dateString);
+
+  const year = dateObj.getFullYear();
+  const month = dateObj.getMonth() + 1;
+  const day = dateObj.getDate();
+
+  const formattedDate = `${year}년 ${month}월 ${day}일`;
+
   useEffect(() => {
     dispatch(getAnIssueThunk(issueId));
   }, []);
@@ -79,7 +88,7 @@ function Detail() {
                 </Title>
                 <div>
                   <Author>작성자: {issue.user.login}</Author>
-                  <span>작성일: {issue.created_at}</span>
+                  <span>작성일: {formattedDate}</span>
                 </div>
               </div>
               <div>
