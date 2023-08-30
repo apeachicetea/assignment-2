@@ -13,6 +13,14 @@ const Container = styled.ul`
   margin-bottom: 20px;
 `;
 
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const AdLink = styled.a`
   text-align: center;
   margin: 20px 0px 20px 0px;
@@ -68,7 +76,9 @@ function Issues() {
   return (
     <Fragment>
       {isLoading ? (
-        <LoadingIndicator />
+        <Wrapper>
+          <LoadingIndicator />
+        </Wrapper>
       ) : (
         <Container>
           {issues.map((issue, idx) => {

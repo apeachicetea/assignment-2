@@ -6,6 +6,15 @@ import { useSelector, useDispatch } from "react-redux";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import { getAnIssueThunk } from "../Redux/IssueSlice";
 import Header from "../Components/Header";
+import { styled } from "styled-components";
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function Detail() {
   const location = useLocation();
@@ -43,7 +52,9 @@ function Detail() {
           <ReactMarkdown children={issue.body} remarkPlugins={[remarkGfm]} />
         </>
       ) : (
-        <LoadingIndicator />
+        <Wrapper>
+          <LoadingIndicator />
+        </Wrapper>
       )}
     </>
   );
