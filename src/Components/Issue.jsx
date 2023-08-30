@@ -24,6 +24,15 @@ const RightWrapper = styled.div`
 function Issue({ issue }) {
   const navigate = useNavigate();
 
+  const dateString = issue.created_at;
+  const dateObj = new Date(dateString);
+
+  const year = dateObj.getFullYear();
+  const month = dateObj.getMonth() + 1;
+  const day = dateObj.getDate();
+
+  const formattedDate = `${year}년 ${month}월 ${day}일`;
+
   return (
     <Wrapper
       onClick={() =>
@@ -39,7 +48,7 @@ function Issue({ issue }) {
         <span>{issue.title}</span>
         <LeftBottomBox>
           <div>작성자: {issue.user.login}</div>
-          <div>작성일: {issue.created_at}</div>
+          <div>작성일: {formattedDate}</div>
         </LeftBottomBox>
       </LeftWrapper>
       <RightWrapper>
