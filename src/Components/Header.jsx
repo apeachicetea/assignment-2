@@ -1,4 +1,18 @@
 import { useSelector } from "react-redux";
+import { styled } from "styled-components";
+
+const HeaderDiv = styled.div`
+  width: 100vw;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+`;
+
+const Text = styled.h1`
+  font-weight: bold;
+`;
 
 function Header() {
   const issues = useSelector((state) => {
@@ -16,9 +30,11 @@ function Header() {
   }
 
   return (
-    <div>
-      {issues.length ? `${organizationName} / ${repositoryName}` : null}
-    </div>
+    <HeaderDiv>
+      {issues.length ? (
+        <Text>{`${organizationName} / ${repositoryName}`}</Text>
+      ) : null}
+    </HeaderDiv>
   );
 }
 
