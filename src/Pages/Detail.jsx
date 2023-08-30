@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import { getAnIssueThunk } from "../Redux/IssueSlice";
+import Header from "../Components/Header";
 
 function Detail() {
   const location = useLocation();
@@ -20,6 +21,7 @@ function Detail() {
 
   return (
     <>
+      <Header />
       {Object.keys(issue).length ? (
         <>
           <div>
