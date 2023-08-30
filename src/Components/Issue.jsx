@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
-  padding-bottom: 10px;
+  justify-content: space-between;
+  padding: 0px 10px 10px 10px;
   margin-bottom: 10px;
   border-bottom: solid 1px black;
   text-decoration: none;
@@ -19,6 +20,14 @@ const LeftBottomBox = styled.div`
 const RightWrapper = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const Title = styled.h3`
+  margin-bottom: 10px;
+`;
+
+const Author = styled.span`
+  margin-right: 5px;
 `;
 
 function Issue({ issue }) {
@@ -44,10 +53,12 @@ function Issue({ issue }) {
       }
     >
       <LeftWrapper>
-        <span>#{issue.number}</span>
-        <span>{issue.title}</span>
+        <Title>
+          <span>#{issue.number}</span>
+          <span>{issue.title}</span>
+        </Title>
         <LeftBottomBox>
-          <div>작성자: {issue.user.login}</div>
+          <Author>작성자: {issue.user.login}</Author>
           <div>작성일: {formattedDate}</div>
         </LeftBottomBox>
       </LeftWrapper>
