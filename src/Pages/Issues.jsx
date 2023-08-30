@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState, useRef } from "react";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { getIssues } from "../Utils/IssuesUtil";
 import Issue from "../Components/Issue";
 import LoadingIndicator from "../Components/LoadingIndicator";
@@ -13,6 +14,10 @@ const Container = styled.ul`
   align-items: center;
 `;
 
+const AdLink = styled.a``;
+
+const AdImg = styled.img``;
+
 const Target = styled.div`
   width: 100vw;
   height: 10px;
@@ -24,6 +29,10 @@ function Issues() {
   const [isLoading, setIsLoading] = useState(true);
   const [perPage, setPerPage] = useState(8);
   const target = useRef(null);
+  const navigate = useNavigate();
+
+  const adImageUrl =
+    "https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100";
 
   const callback = (e) => {
     if (e[0].isIntersecting) {
@@ -60,8 +69,18 @@ function Issues() {
         <LoadingIndicator />
       ) : (
         <Container>
-          {issues.map((issue) => {
-            return <Issue key={issue.id} issue={issue} />;
+          {issues.map((issue, idx) => {
+            return idx !== 0 && idx % 4 === 0 ? (
+              <AdLink
+                key={issue.id}
+                href="https://www.wanted.co.kr/"
+                target="blank"
+              >
+                <AdImg src={adImageUrl} alt="Advertisement" />
+              </AdLink>
+            ) : (
+              <Issue key={issue.id} issue={issue} />
+            );
           })}
         </Container>
       )}
